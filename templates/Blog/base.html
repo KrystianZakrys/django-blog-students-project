@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>(function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.9";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <script src="https://apis.google.com/js/platform.js"></script>
+
+    <script>
+        function onYtEvent(payload) {
+            if (payload.eventType == 'subscribe') {
+                // Add code to handle subscribe event.
+            } else if (payload.eventType == 'unsubscribe') {
+                // Add code to handle unsubscribe event.
+            }
+            if (window.console) { // for debugging only
+                window.console.log('YT event: ', payload);
+            }
+        }
+    </script>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <style>
+        /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+        .row.content {
+            height: 1500px
+        }
+
+        /* Set gray background color and 100% height */
+        .sidenav {
+            background-color: #f1f1f1;
+            height: 100%;
+        }
+
+        /* Set black background color, white text and some padding */
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
+
+        /* On small screens, set height to 'auto' for sidenav and grid */
+        @media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 0px;
+            }
+
+            .row.content {
+                height: auto;
+            }
+        }
+
+        body {
+            font: 20px Montserrat, sans-serif;
+            line-height: 1.8;
+            color: #000000;
+        }
+
+        p {
+            font-size: 16px;
+        }
+
+        .margin {
+            margin-bottom: 45px;
+        }
+
+        .bg-1 {
+            background-color: #1abc9c; /* Green */
+            color: #000000;
+        }
+
+        .bg-2 {
+            background-color: #474e5d; /* Dark Blue */
+            color: #000000;
+        }
+
+        .bg-3 {
+            background-color: #ffffff; /* White */
+            color: #555555;
+        }
+
+        .bg-4 {
+            background-color: #2f2f2f; /* Black Gray */
+            color: #000000;
+        }
+
+        .container-fluid {
+            padding-top: 70px;
+            padding-bottom: 70px;
+        }
+
+        .navbar {
+            padding-top: 1px;
+            padding-bottom: 1px;
+            border: 0;
+            border-radius: 0;
+            margin-bottom: 0;
+            font-size: 12px;
+            letter-spacing: 5px;
+        }
+
+        .navbar-nav li a:hover {
+            color: #ffffff;
+        }
+
+        .mojKolor {
+            background-color: #ffa700;
+        }
+
+        .post-content {
+            background: none repeat scroll 0 0 #FFFFFF;
+            opacity: 0.8;
+            bottom: 0;
+            left: 0;
+            padding: 10px;
+            position: absolute;
+            width: 100%;
+        }
+
+        .thumbnail {
+            position: relative;
+
+        }
+    </style>
+</head>
+<body id="body">
+
+
+
+
+<!-- Navbar -->
+<nav class="navbar navbar-default mojKolor navbar-fixed-top" id="navigation">
+    <div class="container">
+        <div class="navbar-header ">
+
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" id="brand" href="/">MADZIA#FASHION
+
+            </a>
+
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+                {% if authenticated == True %}
+                    {# <li><a href="/"> <span class="glyphicon glyphicon-user">Profil </a></li>#}
+                    {% if request.user.is_superuser %}
+                        <li><a href="/admin/Blog/post/add/"> <span class="glyphicon glyphicon-plus">Dodaj post </a></li>
+                        <li><a href="/admin"> <span class="glyphicon glyphicon-th-large">Administracja </a></li>
+                    {% endif %}
+                {% endif %}
+                <li><a href="#">KTO</a></li>
+                <li><a href="#">CO</a></li>
+                <li><a href="#">GDZIE</a></li>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        {% if authenticated == True %}
+                            <a href="/logout/"><span class="glyphicon glyphicon-log-in"></span> Logout</a>
+                        {% else %}
+                            <a href="/login/"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid" style="height: 100%">
+    <div class="row content">
+        {% block content %}
+
+
+        {% endblock %}
+
+        <div class="col-sm-3 sidenav" id="side">
+            <div style="margin: 20px">
+
+
+                <div class="g-ytsubscribe" data-channel="GoogleDevelopers" data-layout="full" data-count="default"
+                     data-onytevent="onYtEvent">
+
+                </div>
+                <div class="fb-like" data-href="{{ request.build_absolute_uri }}"
+                     data-layout="button_count" data-action="like" data-size="small" data-show-faces="true"
+                     data-share="true"></div>
+                <a href="https://twitter.com/TwitterDev" class="twitter-follow-button" data-show-count="false">Follow
+                    @TwitterDev</a>
+
+            </div>
+            <form method="get" action="">
+                <div class="input-group" style="top:10px">
+
+                    <input type="text" name="q" class="form-control" placeholder="Search Blog..">
+                    <span class="input-group-btn">
+          <button class="btn btn-default" type="submit">
+            <span class="glyphicon glyphicon-search"></span>
+          </button>
+        </span>
+
+
+                </div>
+            </form>
+            <div style="margin-top: 25px;">
+                <h4>Tagi</h4>
+                <hr>
+
+                {% for tag in tagi %}
+                    <a class="btn btn-warning" href="/?qt={{ tag.nazwa }}"> {{ tag.nazwa }}</a>
+                {% endfor %}
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="fb-root"></div>
+
+
+<footer class="container-fluid">
+    <p>Footer Text</p>
+</footer>
+
+</body>
+</html>

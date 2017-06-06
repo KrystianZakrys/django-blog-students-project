@@ -1,0 +1,57 @@
+{% extends 'Blog/base.html' %}
+
+{% block content %}
+    <h2 class="text-center">
+        <small>RECENT POSTS</small>
+    </h2>
+    <hr>
+    <div class="col-sm-9" style="padding-left: 45px">
+        {% for post in posty %}
+            <a href="{% url 'post_details' pk=post.pk %}">
+                <div class="thumbnail">
+                    <img src="media/{{ post.obrazek_postu }}" class="img-responsive margin"
+                         style="width: 1200px; height: 500px" alt="Miniaturka">
+                    <div class="post-content">
+                        <h2>{{ post.tytul }}
+                            {% if post.data.date == today.date %}
+                                <span class="label label-danger">New</span>
+                            {% endif %}
+                        </h2>
+
+                        <h5><span class="glyphicon glyphicon-time"></span> Post
+                            by {{ post.id_user.username }}, {{ post.data }}.</h5>
+                        <h5>
+                            {% for tag in post.tags.all %}
+                                <span class="label label-default">{{ tag.nazwa }}</span>
+                            {% endfor %}
+                        </h5>
+                        <br>
+                        <p>{{ post.skrocona_tresc }}</p>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+        <br>
+        <hr>
+        <div class=" text-center">
+
+            <h2 class="step-links ">
+
+        <span class="current small ">
+            Page {{ posty.number }} of {{ posty.paginator.num_pages }}.
+        </span>
+                {% if posty.has_previous %}
+                    <a href="?page={{ posty.previous_page_number }}">previous</a>
+                {% endif %}
+
+                {% if posty.has_next %}
+                    <a href="?page={{ posty.next_page_number }}">next</a>
+                {% endif %}
+            </h2>
+        </div>
+        <br>
+        <hr>
+
+    </div>
+
+{% endblock content %}

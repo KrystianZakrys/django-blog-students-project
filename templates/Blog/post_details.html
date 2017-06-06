@@ -1,0 +1,60 @@
+{% extends 'Blog/base.html' %}
+
+{% block content %}
+    <div class="col-sm-9" style="padding-left: 45px">
+
+        <img src="{{ post.obrazek_postu.url }}" class="img-responsive margin"
+             style="width:100%" alt="Miniaturka">
+
+        <h2>{{ post.tytul }}</h2>
+
+        <h5><span class="glyphicon glyphicon-time"></span> Post by {{ post.id_user.username }}, {{ post.data }}.</h5>
+        <h5>
+            {% for tag in post.tags.all %}
+                <span class="label label-default">{{ tag.nazwa }}</span>
+            {% endfor %}
+        </h5>
+        <br>
+        <p>{% autoescape off %}{{ post.tresc }}{% endautoescape %}</p>
+        <div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5" data-width="100%"></div>
+
+
+        <style>
+            div.square {
+                position: fixed;
+                padding: 0;
+                margin: 0;
+
+                top: 0;
+                left: 0;
+
+                width: 100%;
+                height: 100%;
+                background: rgba(255, 255, 255, 0.7);
+            }
+        </style>
+        {% if post.haslo != '' and post.haslo != null %}
+            <div class="square" id="mleko" style="display: block">
+            </div>
+        {% endif %}
+        <script>
+            $(document).ready(function () {
+                if ('{{ post.haslo }}' != null && '{{ post.haslo }}' != '') {
+                    do {
+                        var person = prompt("Jeśli nie znasz hasła do tego postu, to znaczy " +
+                            "że jego autor nie chciał abyś go zobaczył. Proszę wpisz hasło aby odblokować post.:", "Hasło...");
+                    } while ((person != '{{ post.haslo }}' && person != null) || person == '');
+
+                    if (person == null || person == "") {
+                        window.location.replace("/");
+                    }
+                    if (person == '{{ post.haslo }}') {
+                        document.getElementById("mleko").style.display = 'none';
+                    }
+                }
+            });
+
+        </script>
+    </div>
+
+{% endblock content %}
