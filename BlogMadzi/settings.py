@@ -25,7 +25,7 @@ SECRET_KEY = '8i-56&*%mvg%zl%3#xdh^yz$lvbctxgxsn(rdjrbgk4e(4%)&&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [u'blog-hashstok.herokuapp.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -124,7 +124,7 @@ STATIC_URL = '/static/'
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media_cdn")
+MEDIA_ROOT = os.path.join(PROJECT_DIR, "media_cdn")
 MEDIA_URL = "/media/"
 
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
