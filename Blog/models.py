@@ -47,6 +47,8 @@ class Post(models.Model):
     def __str__(self):
         return self.tytul
 
+    def __unicode__(self):
+        return self.tytul
 
 class Obraz(models.Model):
     sciezka = models.FileField(max_length=100)
