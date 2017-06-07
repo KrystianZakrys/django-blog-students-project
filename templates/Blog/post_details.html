@@ -19,7 +19,10 @@
         <div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5" data-width="100%"></div>
 <div id="disqus_thread"></div>
 <script>
-
+var disqus_shortname = "blog-hashstok-1";
+var disqus_identifier = '{{ post.id }}';
+var disqus_title = '{{ post.tytul }}';
+var disqus_url = '{{ request.build_absolute_uri }}';
 /**
 *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
@@ -31,7 +34,7 @@ this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your pag
 */
 (function() { // DON'T EDIT BELOW THIS LINE
 var d = document, s = d.createElement('script');
-s.src = 'https://blog-hashstok-1.disqus.com/embed.js';
+s.src = 'https://'+ disqus_shortname + 'disqus.com/embed.js';
 s.setAttribute('data-timestamp', +new Date());
 (d.head || d.body).appendChild(s);
 })();
